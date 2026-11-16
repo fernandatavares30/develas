@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from vagas.dados import VAGAS
-
+from django.http import Http404
 
 def home(request):
     return render(request, "vagas/home.html")
@@ -13,3 +13,35 @@ def mural(request):
         "total": len(VAGAS),
     }
     return render(request, "vagas/mural.html", contexto)
+
+def detalhe(request, vaga_id):
+    for vaga in VAGAS:
+        if vaga["id"] == vaga_id:
+            return render(request, "vagas/detalhe.html", {"vaga": vaga})
+    raise Http404("Vaga não encontrada")
+def mural(request):
+    modalidade = request.GET.get("modalidade", "")
+
+    if modalidade:
+        vagas = []
+        for vaga in VAGAS:
+            if vaga["modalidade"] == modalidade:
+                vagas.append(vaga)
+        else:
+            vagas = VAGAS
+
+    contexto = {
+        "vagas": vagas,
+        "total": len(vagas),
+        "modalidade": modalidade,
+    }
+    return render(request, "vagas/mural.html", contexto)
+
+
+    contexto = {
+        "vagas": vagas,
+        "total": len(vagas),
+        "modalidade": modalidade,
+    }
+    return render(request, "vagas/mural.html", contexto)
+
