@@ -33,33 +33,16 @@
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for vaga in vagas %}
           <div class="col">
-            <div class="card h-100 border-0 shadow-sm borda-destaque
-                        {% if not vaga.aberta %}opacity-75{% endif %}">
+            <div class="card h-100 border-0 shadow-sm borda-destaque">
               <div class="card-body">
-                <div class="d-flex justify-content-between gap-2 mb-2">
-                  <span class="badge badge-develas">{{ vaga.modalidade }}</span>
-                  {% if vaga.aberta %}
-                    <span class="badge text-bg-light border">
-                      {{ vaga.compatibilidade }}% compatível
-                    </span>
-                  {% else %}
-                    <span class="badge text-bg-secondary">Encerrada</span>
-                  {% endif %}
-                </div>
+                <span class="badge badge-develas mb-2">{{ vaga.modalidade }}</span>
                 <h2 class="h5 card-title">{{ vaga.titulo }}</h2>
                 <p class="text-muted mb-3">{{ vaga.empresa }} · {{ vaga.cidade }}</p>
                 <p class="mb-2">
                   <span class="badge text-bg-light border">{{ vaga.area }}</span>
                   <span class="badge text-bg-light border">{{ vaga.nivel }}</span>
                 </p>
-                <p class="small text-muted mb-1">{{ vaga.skills|join:" · " }}</p>
-                {% if vaga.aberta %}
-                  <p class="small mb-0">
-                    Inscrições até {{ vaga.prazo|date:"d/m/Y" }}
-                  </p>
-                {% else %}
-                  <p class="small mb-0">Inscrições encerradas</p>
-                {% endif %}
+                <p class="small text-muted mb-0">{{ vaga.skills|join:" · " }}</p>
               </div>
               <div class="card-footer bg-transparent border-0 pb-3">
                 <a class="btn btn-develas w-100" href="{% url 'detalhe' vaga.id %}">
